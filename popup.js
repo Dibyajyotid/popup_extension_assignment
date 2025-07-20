@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // UI updates
       getTitleBtn.disabled = true;
-      getTitleBtn.textContent = "Getting Title...";
+      getTitleBtn.textContent = "Fetching Title...";
       titleText.textContent = "Loading...";
       titleText.className = "loading";
 

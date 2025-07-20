@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Title Picker",
+  "version": "1.0",
+  "description": "Get the title of the current tab with a single click",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Get Tab Title"
+  }
+}

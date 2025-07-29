@@ -72,24 +72,26 @@ function scrapeLinkedInProfile() {
 
   // Get follower count
   let followerCount = 0;
-  const followerElements = document.querySelectorAll("span");
-  for (const element of followerElements) {
-    const text = element.textContent.toLowerCase();
-    if (text.includes("follower")) {
-      followerCount = extractNumber(text);
-      break;
-    }
+  const followerElement =
+    document.querySelector(".pv-top-card--followers-count") ||
+    document.querySelector(".top-card__profile-stats__followers-count") ||
+    document.querySelector('[data-test-id="follower-count"]') ||
+    document.querySelector('a[href*="followers"] span');
+
+  if (followerElement) {
+    followerCount = extractNumber(followerElement.textContent);
   }
 
   // Get connection count
   let connectionCount = 0;
-  const connectionElements = document.querySelectorAll("span");
-  for (const element of connectionElements) {
-    const text = element.textContent.toLowerCase();
-    if (text.includes("connection")) {
-      connectionCount = extractNumber(text);
-      break;
-    }
+  const connectionElement =
+    document.querySelector(".pv-top-card--connections") ||
+    document.querySelector(".top-card__profile-stats__connections-count") ||
+    document.querySelector('[data-test-id="connection-count"]') ||
+    document.querySelector('a[href*="connections"] span');
+
+  if (connectionElement) {
+    connectionCount = extractNumber(connectionElement.textContent);
   }
 
   // If we couldn't find specific counts, try alternative selectors

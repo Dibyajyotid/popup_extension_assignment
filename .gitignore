@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+logs/
+
+# Temporary files
+*.tmp
+
+# IDE specific files
+.vscode/
+
+# OS generated files
+.DS_Store
+
+# environment files
+.env

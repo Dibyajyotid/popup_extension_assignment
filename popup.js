@@ -1,38 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Getting the references to the button and text elements
-  const getTitleBtn = document.getElementById("getTitleBtn");
-  const titleText = document.getElementById("titleText");
+document.getElementById("scrapeButton").addEventListener("click", async () => {
+  const statusEl = document.getElementById("status");
+  const profileLinksText = document.getElementById("profileLinks").value.trim();
+  const profileLinks = profileLinksText
+    .split("\n")
+    .filter((link) => link.trim() !== "");
 
-  getTitleBtn.addEventListener("click", async () => {
-    try {
-      // UI updates
-      getTitleBtn.disabled = true;
-      getTitleBtn.textContent = "Fetching Title...";
-      titleText.textContent = "Loading...";
-      titleText.className = "loading";
+  if (profileLinks.length < 3) {
+    statusEl.textContent = "Please enter at least 3 profile URLs";
+    return;
+  }
 
-      // Query chrome for the active tab in the current window
-      const [tab] = await window.chrome.tabs.query({
-        active: true,
-        currentWindow: true,
-      });
+  statusEl.textContent = "Starting scraping process...";
 
-      if (tab && tab.title) {
-        // Displaying the current tab title
-        titleText.textContent = tab.title;
-        titleText.className = "title-text";
-      } else {
-        titleText.textContent = "Could not retrieve tab title";
-        titleText.className = "placeholder";
+  try {
+    // Send the links to the background script
+    chrome.runtime.sendMessage(
+      {
+        action: "scrapeProfiles",
+        profileLinks: profileLinks,
+      },
+      (response) => {
+        if (response.success) {
+          statusEl.textContent = "Scraping initiated! Check the opened tabs.";
+        } else {
+          statusEl.textContent = "Error: " + response.error;
+        }
       }
-    } catch (error) {
-      console.error("Error getting tab title:", error);
-      titleText.textContent = "Error: Could not get tab title";
-      titleText.className = "placeholder";
-    } finally {
-      // Re-enable button and reset text regardless of outcome
-      getTitleBtn.disabled = false;
-      getTitleBtn.textContent = "Get Current Tab Title";
-    }
-  });
+    );
+  } catch (error) {
+    statusEl.textContent = "Error: " + error.message;
+  }
 });

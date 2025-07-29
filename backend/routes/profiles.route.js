@@ -56,24 +56,24 @@ router.post("/", async (req, res) => {
 });
 
 // GET API to fetch all profiles
-// router.get("/", async (req, res) => {
-//   try {
-//     const profiles = await Profile.findAll({
-//       order: [["createdAt", "DESC"]],
-//     });
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
-//     res.status(200).json({
-//       success: true,
-//       data: profiles,
-//     });
-//   } catch (error) {
-//     console.error("Error fetching profiles:", error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Error fetching profiles",
-//       error: error.message,
-//     });
-//   }
-// });
+    res.status(200).json({
+      success: true,
+      data: profiles,
+    });
+  } catch (error) {
+    console.error("Error fetching profiles:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching profiles",
+      error: error.message,
+    });
+  }
+});
 
 module.exports = router;

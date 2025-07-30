@@ -1,18 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "LinkedIn Profile Scraper",
+  "name": "Simple LinkedIn Scraper",
   "version": "1.0",
-  "description": "Scrape LinkedIn profiles and store data",
-  "permissions": ["activeTab", "tabs", "storage"],
-  "host_permissions": ["https://www.linkedin.com/*"],
+  "description": "Scrape and send LinkedIn profiles",
+  "permissions": ["tabs", "scripting"],
+  "host_permissions": ["https://www.linkedin.com/*", "http://localhost:3000/*"],
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "LinkedIn Profile Scraper"
+    "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://www.linkedin.com/*"],
-      "js": ["content.js"]
-    }
-  ]
+  "background": {
+    "service_worker": "popup.js"
+  }
 }

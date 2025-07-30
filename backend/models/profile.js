@@ -1,14 +1,9 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db.js");
+const sequelize = require("../config/database");
 
 const Profile = sequelize.define(
   "Profile",
   {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,26 +13,15 @@ const Profile = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    about: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    bio: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    location: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+    about: DataTypes.TEXT,
+    bio: DataTypes.TEXT,
+    location: DataTypes.STRING,
     followerCount: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       defaultValue: 0,
     },
     connectionCount: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       defaultValue: 0,
     },
   },
